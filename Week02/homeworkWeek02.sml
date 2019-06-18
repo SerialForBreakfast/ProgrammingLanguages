@@ -13,3 +13,15 @@ fun is_older(first_date: int*int*int, second_date: int*int*int) =
                                     else true
                             else false
             else false
+
+
+fun number_in_month (dates: (int*int*int) list, month: int) =
+    if null dates 
+    then 0
+    else 
+        if #2 (hd dates) = month 
+        then number_in_month(tl dates, month) + 1
+        else number_in_month(tl dates, month)      
+        
+
+
