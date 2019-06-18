@@ -2,7 +2,7 @@
 
 (* Problem 1 *)
 fun is_older(first_date: int*int*int, second_date: int*int*int) =
-    if #1 first_date < #1 second_date then true
+    if #1 first_date < #1 second_date then true  
     else 
         if #1 first_date > #1 second_date then false
         else 
@@ -74,3 +74,33 @@ fun number_before_reaching_sum(sum: int, positive_number_list: int list) =
     in
         count(positive_number_list, counter, current_total)
     end
+
+
+
+(* Problem 9 *)
+fun what_month(day: int) =
+    let 
+        (* val months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] *)
+        val month_dates= [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    in
+       number_before_reaching_sum(day, month_dates) + 1
+    end
+
+
+(* Problem 10 *)
+fun month_range(day1: int, day2: int) =
+    if day1 > day2 
+    then []
+    else what_month(day1) :: month_range(day1 + 1, day2)
+
+(* Problem 11 *)
+fun oldest(dates: (int*int*int) list) =
+    if null dates then NONE
+    else 
+        let
+        val oldest_date = oldest(tl dates)
+        in
+            if isSome oldest_date andalso is_older(valOf oldest_date, hd dates) 
+            then oldest_date
+            else SOME(hd dates)
+        end
